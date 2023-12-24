@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>I love You</title>
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      background-color: pink;
+    }
+
+    img {
+      width: 200px; /* Adjust the width as needed */
+      margin-bottom: 20px;
+    }
+
+    button {
+      background-color: aqua;
+      height: 1cm;
+      width: 2cm;
+      border-radius: 10px; /* Adjust the radius to your preference */
+      margin-top: 10px;
+    }
+
+    #messageContainer {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div id="messageContainer">
+    <p id="message">Would you like to go on a date with me?</p>
+  </div>
+  <img id="cuteGif" src="cute.gif" alt="Cute GIF asking for Yes or No">
+  <button id="yesButton" onclick="showMessage(true)">Yes</button>
+  <button id="noButton" onclick="moveNoButton()">No</button>
+
+  <script>
+    let messageContainer = document.getElementById('messageContainer');
+    let cuteGifElement = document.getElementById('cuteGif');
+    let yesButton = document.getElementById('yesButton');
+    let noButton = document.getElementById('noButton');
+    let buttonClickCount = 0;
+    let maxMoveCount = 5;
+    let currentMoveCount = 0;
+
+    function showMessage(clickedYes) {
+      if (clickedYes) {
+        messageContainer.style.display = 'none';
+      }
+      cuteGifElement.src = 'new_cute.gif'; // Replace with the path to your new GIF
+      hideButtons();
+    }
+
+    function hideButtons() {
+      yesButton.style.display = 'none';
+      noButton.style.display = 'none';
+    }
+
+    function moveNoButton() {
+      if (currentMoveCount < maxMoveCount) {
+        currentMoveCount++;
+
+        let randomX = Math.floor(Math.random() * window.innerWidth - 100);
+        let randomY = Math.floor(Math.random() * window.innerHeight - 40);
+
+        noButton.style.position = 'absolute';
+        noButton.style.left = `${randomX}px`;
+        noButton.style.top = `${randomY}px`;
+
+        console.log(`No button moved to (${randomX}px, ${randomY}px). Move count: ${currentMoveCount}`);
+      } else if (currentMoveCount === maxMoveCount) {
+        // Hide the button after the sixth click
+        noButton.style.display = 'none';
+        console.log('No button disappeared after the sixth click.');
+      }
+    }
+  </script>
+</body>
+</html>
